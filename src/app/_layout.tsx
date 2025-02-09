@@ -1,9 +1,9 @@
 import { useEventLogger } from "@/hooks/useEventLogger";
-import { useSetupTrackPlayer } from "@/hooks/useSetupTrackPlayer";
+import { setupPlayer, useInitializePlayer } from "@/hooks/useSetupTrackPlayer";
 import { playbackService } from "@/services/playbackService";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { AppRegistry } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import TrackPlayer from "react-native-track-player";
@@ -19,7 +19,10 @@ SplashScreen.preventAutoHideAsync()
 
 export const App = () => {
 
-  useFonts({
+  const initialized = useRef(false)
+  const { initializePlayer } = useInitializePlayer()
+
+  const [loaded, error] = useFonts({
     "Sora-Bold": require("../../assets/fonts/Sora-Bold.ttf"),
     "Sora-ExtraBold": require("../../assets/fonts/Sora-ExtraBold.ttf"),
     "Sora-Light": require("../../assets/fonts/Sora-Light.ttf"),
@@ -29,12 +32,23 @@ export const App = () => {
   })
 
   const handleLoadSplashScreen = useCallback(() => {
-    SplashScreen.hideAsync()
+    setupPlayer().then(() => {
+      SplashScreen.hideAsync()
+      initializePlayer()
+      initialized.current = true
+    }).catch(e => {
+      initialized.current = false
+      console.log("Error setting up player", e)
+    })
   }, [])
 
-  useSetupTrackPlayer({
-    onLoad: handleLoadSplashScreen
-  })
+
+  useEffect(() => {
+    if (loaded && !error) {
+      handleLoadSplashScreen()
+    }
+  }, [loaded, error])
+
 
   useEventLogger()
 
