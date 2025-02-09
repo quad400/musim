@@ -1,17 +1,16 @@
-import { View, Text, StyleSheet, TouchableOpacity, Platform, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react'
 import { fontSize, spacing } from '@/constants/sizes'
-import { colors } from '@/constants/colors'
+import { colors } from '@/constants/color'
 import { unknownTrackImageUri } from '@/constants/images'
-import * as DropdownMenu from "zeego/dropdown-menu"
-import { Entypo } from '@expo/vector-icons'
 import { Track, useActiveTrack } from 'react-native-track-player'
 import { fonts } from '@/constants/fonts'
 import LoaderKit from 'react-native-loader-kit'
+import { StopPropagation } from './StopPropagation'
+import MenuContent from './MenuContent'
 
 
-const Page = ({ item, onPress }: { item: Track, onPress: () => void }) => {
-
+const TrackItem = ({ item, onPress }: { item: Track, onPress: () => void }) => {
 
   const activeTrack = useActiveTrack()
 
@@ -21,7 +20,13 @@ const Page = ({ item, onPress }: { item: Track, onPress: () => void }) => {
       <View style={styles.wrapper}>
         <ImageBackground
           source={{ uri: item.artwork ?? unknownTrackImageUri }}
-          style={[styles.image, { justifyContent: "center", alignItems: "center" }]}
+          resizeMode='cover'
+          style={[styles.image, { 
+            justifyContent: "center", 
+            alignItems: "center", 
+            borderRadius: spacing.sm,
+            overflow: "hidden",
+          }]}
         >
 
           {activeTrack?.url === item.url && <LoaderKit
@@ -42,46 +47,22 @@ const Page = ({ item, onPress }: { item: Track, onPress: () => void }) => {
 
           }} />
           }</ImageBackground>
-        <View style={{ gap: 5 }}>
+        <View style={{ marginRight:spacing.sm,flex: 1 }}>
 
-          <Text style={styles.title}>{item.title}</Text>
+          <Text numberOfLines={1} ellipsizeMode='tail' style={styles.title}>{item.title}</Text>
           <Text style={styles.text}>{item.artist}</Text>
         </View>
       </View>
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Text>Hello</Text>
-          <Entypo name="dots-three-horizontal" size={16} color={colors.icon} />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
-          <DropdownMenu.Item key='copy'>
-            <DropdownMenu.ItemIcon ios={{
-              name: "heart.fill",
-              hierarchicalColor: colors.primary
-            }}>
-
-            </DropdownMenu.ItemIcon>
-            <DropdownMenu.ItemTitle>
-              Add Favorite
-            </DropdownMenu.ItemTitle>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item key='playlist'>
-            <DropdownMenu.ItemIcon ios={{
-              name: "play.square.stack.fill",
-            }}>
-
-            </DropdownMenu.ItemIcon>
-            <DropdownMenu.ItemTitle>
-              Remove Playlist
-            </DropdownMenu.ItemTitle>
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      <StopPropagation>
+        <MenuContent
+          item={item}
+        />
+      </StopPropagation>
     </TouchableOpacity>
   )
 }
 
-export default Page
+export default TrackItem
 
 const styles = StyleSheet.create({
   container: {
@@ -91,6 +72,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   wrapper: {
+    flex: 1,
     gap: 10,
     flexDirection: "row",
     alignItems: "center",

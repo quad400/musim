@@ -2,7 +2,7 @@ import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'reac
 import React, { useEffect } from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import { defaultStyles } from '@/constants/styles'
-import { colors } from '@/constants/colors';
+import { colors } from '@/constants/color';
 import { fontSize, spacing } from '@/constants/sizes';
 import { router } from 'expo-router';
 import { LoopMode } from '@/interfaces';

@@ -15,7 +15,6 @@ export const setupPlayer = async () => {
 
 export const useInitializePlayer = () => {
     const [player] = useMMKVObject<Track>("player")
-    console.log("Player", player)
     const initializePlayer = async () => {
         if (!player) {
             return

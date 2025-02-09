@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { colors } from '@/constants/colors'
+import { colors } from '@/constants/color'
 import { unknownTrackImageUri } from '@/constants/images'
 import { fontSize, spacing } from '@/constants/sizes'
 import { AntDesign, FontAwesome6 } from '@expo/vector-icons'
@@ -57,7 +57,7 @@ export default FloatingPlayer
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        bottom: 90,
+        bottom: 88,
         left: 0,
         right: 0,
         width: "100%",

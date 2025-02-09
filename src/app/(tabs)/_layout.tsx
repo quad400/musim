@@ -3,7 +3,7 @@ import React from 'react'
 import { Tabs } from 'expo-router'
 import { BlurView } from 'expo-blur'
 import { FontAwesome, Fontisto, MaterialIcons } from '@expo/vector-icons';
-import { colors } from '@/constants/colors';
+import { colors } from '@/constants/color';
 import { fontSize } from '@/constants/sizes';
 
 const TabsLayout = () => {

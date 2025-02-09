@@ -67,3 +67,32 @@ export const useLoopMode = () => {
         setLoopMode
     }
 }
+
+export const useSelectTrack = (tracks: Track[]) => {
+
+    const [_, setPlayer] = useMMKVObject<Track>("player")
+
+    const handleSelectedTrack = async (item: Track) => {
+        const trackIndex = tracks.findIndex((track) => track.url === item.url)
+
+        if (trackIndex === -1) return
+
+        const beforeTracks = tracks.slice(0, trackIndex)
+        const afterTracks = tracks.slice(trackIndex + 1)
+        setPlayer(item)
+
+        await TrackPlayer.reset()
+
+        await TrackPlayer.add(item)
+        await TrackPlayer.add(afterTracks)
+        await TrackPlayer.add(beforeTracks)
+
+        await TrackPlayer.play()
+
+    }
+
+    return {
+        handleSelectedTrack
+    }
+
+}

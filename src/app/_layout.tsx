@@ -2,12 +2,16 @@ import { useEventLogger } from "@/hooks/useEventLogger";
 import { setupPlayer, useInitializePlayer } from "@/hooks/useSetupTrackPlayer";
 import { playbackService } from "@/services/playbackService";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { useCallback, useEffect, useRef } from "react";
-import { AppRegistry } from "react-native";
+import { AppRegistry, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import TrackPlayer from "react-native-track-player";
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { fonts } from "@/constants/fonts";
+import { colors } from "@/constants/color";
+import { AntDesign } from "@expo/vector-icons";
+import { Toaster } from 'sonner-native';
 
 
 
@@ -44,7 +48,7 @@ export const App = () => {
 
 
   useEffect(() => {
-    if (loaded && !error) {
+    if (loaded || error) {
       handleLoadSplashScreen()
     }
   }, [loaded, error])
@@ -56,6 +60,13 @@ export const App = () => {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <RootLayout />
+        <Toaster
+          toastOptions={{
+            style: {
+              backgroundColor: colors.backgroundAlt
+            }
+          }}
+        />
       </GestureHandlerRootView>
     </SafeAreaProvider>
   )
@@ -76,6 +87,48 @@ const RootLayout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen name='add-playlist' options={{
+        presentation: 'modal',
+        headerTitle: 'Add Playlist',
+        contentStyle: {
+          backgroundColor: colors.background
+        },
+        headerStyle: {
+          backgroundColor: colors.background
+        },
+        headerTitleStyle: {
+          color: colors.text,
+          fontFamily: fonts.SoraBold
+        },
+        headerLeft: () => {
+          return (
+            <TouchableOpacity onPress={() => router.back()} style={{ height: 40, width: 40, justifyContent: 'center', alignItems: 'center' }}>
+              <AntDesign name='close' size={24} color={colors.textMuted} />
+            </TouchableOpacity>
+          )
+        },
+      }} />
+      <Stack.Screen name='new-playlist' options={{
+        presentation: 'modal',
+        headerTitle: 'New Playlist',
+        contentStyle: {
+          backgroundColor: colors.background
+        },
+        headerStyle: {
+          backgroundColor: colors.background
+        },
+        headerTitleStyle: {
+          color: colors.text,
+          fontFamily: fonts.SoraBold
+        },
+        headerLeft: () => {
+          return (
+            <TouchableOpacity onPress={() => router.back()} style={{ height: 40, width: 40, justifyContent: 'center', alignItems: 'center' }}>
+              <AntDesign name='close' size={24} color={colors.textMuted} />
+            </TouchableOpacity>
+          )
+        },
+      }} />
     </Stack>
   )
 }

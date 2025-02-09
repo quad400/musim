@@ -1,4 +1,4 @@
-import { colors } from "@/constants/colors"
+import { colors } from "@/constants/color"
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { Slider } from "react-native-awesome-slider"

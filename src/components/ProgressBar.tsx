@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSharedValue } from "react-native-reanimated";
 import { Slider } from 'react-native-awesome-slider';
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants/color";
 import { StyleSheet } from "react-native";
 import { formatSecondsToMinutes } from "@/utils";
 import TrackPlayer from "react-native-track-player";

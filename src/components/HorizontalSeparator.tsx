@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { colors } from '@/constants/colors'
+import { colors } from '@/constants/color'
 
 const HorizontalSeparator = () => {
   return (

@@ -2,7 +2,7 @@ import { View, Text, NativeSyntheticEvent, TextInputFocusEventData, TouchableHig
 import React from 'react'
 import { Stack } from 'expo-router'
 import { defaultStyles } from '@/constants/styles'
-import { colors } from '@/constants/colors'
+import { colors } from '@/constants/color'
 import { AntDesign } from '@expo/vector-icons'
 import { fontSize } from '@/constants/sizes'
 import FloatingPlayer from '@/components/FloatingPlayer'
@@ -30,9 +30,6 @@ const Layout = () => {
                             <AntDesign name='search1' size={24} color={colors.icon} />
                         </TouchableOpacity>)
                     ),
-
-                    // headerBlurEffect: "prominent",
-                    // headerTransparent: true,
                     headerSearchBarOptions: {
                         tintColor: colors.primary,
                         hideWhenScrolling: true,
