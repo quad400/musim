@@ -29,6 +29,7 @@ export const usePlaylist = () => {
             if (playlist.id === playlistId) {
                 return {
                     ...playlist,
+                    image: playlist.tracks.length === 0 ? track.artwork : playlist.image,
                     tracks: [...playlist.tracks, track]
                 }
             }
@@ -51,10 +52,15 @@ export const usePlaylist = () => {
         setPlaylist(newPlaylistList)
     }
 
+    const getPlaylistById = (id: string) => {
+        return playlists?.find(playlist => playlist.id === id)
+    }
+
     return {
         playlists,
         createPlaylist,
         deletePlaylist,
+        getPlaylistById,
         addTrackToPlaylist,
         removeTrackFromPlaylist
     }

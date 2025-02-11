@@ -31,13 +31,10 @@ const Songs = () => {
                 paddingBottom: bottom + 100,
                 backgroundColor: colors.background
             }}
-            ListEmptyComponent={() => (
-                <EmptyList title='No Music on this app' />
-            )}
             ItemSeparatorComponent={HorizontalSeparator}
             keyExtractor={(item, index) => index.toString()}
             indicatorStyle="default"
-            ListHeaderComponent={() => (<HeaderComponent
+            ListHeaderComponent={() => (<HeaderComponentPlayer
                 tracks={tracks}
             />)}
             renderItem={({ item, index }) => (
@@ -51,7 +48,7 @@ const Songs = () => {
 
 export default Songs
 
-const HeaderComponent = ({ tracks }: { tracks: Track[] }) => {
+export const HeaderComponentPlayer = ({ tracks }: { tracks: Track[] }) => {
     return (
         <View
             style={[styles.containerRowCenter, {
@@ -67,7 +64,7 @@ const HeaderComponent = ({ tracks }: { tracks: Track[] }) => {
                     styles.containerRowCenter,
                     {
                         backgroundColor: colors.backgroundAlt,
-                        width: spacing.width / 2 - spacing.lg,
+                        flex: 1,
                         paddingVertical: spacing.base,
                         borderRadius: 15
                     }]}>
@@ -80,7 +77,7 @@ const HeaderComponent = ({ tracks }: { tracks: Track[] }) => {
                 style={[
                     styles.containerRowCenter,
                     {
-                        width: spacing.width / 2 - spacing.lg,
+                        flex: 1,
                         backgroundColor: colors.backgroundAlt,
                         paddingVertical: spacing.base,
                         borderRadius: 15

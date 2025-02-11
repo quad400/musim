@@ -5,7 +5,7 @@ import { colors } from '@/constants/color'
 const HorizontalSeparator = () => {
   return (
     <View style={{
-        paddingVertical:3,
+        paddingVertical:5,
     }}>
         <View
             style={{

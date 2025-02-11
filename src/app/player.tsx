@@ -15,6 +15,8 @@ import { fonts } from '@/constants/fonts';
 import { formatSecondsToMinutes } from '@/utils';
 import AudioProgress from '@/components/AudioProgress';
 import { useLoopMode, usePlayer } from '@/hooks/usePlayer';
+import FastImage from 'react-native-fast-image';
+import { useFavorite } from '@/hooks/useFavorite';
 
 const Player = () => {
 
@@ -22,6 +24,7 @@ const Player = () => {
     const { loop, setLoopMode } = useLoopMode();
 
     const { duration, position } = useProgress();
+    const { isFavorite, toggleFavorite } = useFavorite()
     const trackElapsedTime = formatSecondsToMinutes(duration)
     const trackRemainingTime = formatSecondsToMinutes(duration - position)
 
@@ -41,7 +44,7 @@ const Player = () => {
                 <Pressable onPress={() => router.back()} style={styles.dismissButton} />
             </View>
             <View style={styles.content}>
-                <Image
+                <FastImage
                     source={{ uri: player?.artwork ?? unknownTrackImageUri }}
                     style={styles.artworkBanner}
                 />
@@ -50,8 +53,14 @@ const Player = () => {
                         <MovingText text={player?.title ?? ""} animationThreshold={20} styles={styles.title} />
                         <Text style={styles.artist}>{player?.artist ?? "Unknown"}</Text>
                     </View>
-                    <TouchableOpacity>
-                        <AntDesign name="heart" size={24} color={"red"} />
+                    <TouchableOpacity onPress={() => player && toggleFavorite(player)} style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 20,
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        <AntDesign name={player && isFavorite(player) ? "heart" : "hearto"} size={24} color={player && isFavorite(player) ? colors.primary : colors.icon} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.sliderContainer}>

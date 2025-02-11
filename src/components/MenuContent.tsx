@@ -27,14 +27,14 @@ const MenuContent = ({ item }: { item: Track }) => {
                         {isFavorite(item) ? "Remove from Favorites" : "Add to Favorites"}
                     </DropdownMenu.ItemTitle>
                 </DropdownMenu.Item>
-                <DropdownMenu.Item onSelect={()=>router.push("/add-playlist")} key='playlist'>
+                <DropdownMenu.Item onSelect={() => router.push({ pathname: "/add-playlist", params: { track: JSON.stringify(item) } })} key='playlist'>
                     <DropdownMenu.ItemIcon ios={{
                         name: "play.square.stack.fill",
                     }}>
 
                     </DropdownMenu.ItemIcon>
                     <DropdownMenu.ItemTitle>
-                        Remove Playlist
+                        Add Playlist
                     </DropdownMenu.ItemTitle>
                 </DropdownMenu.Item>
             </DropdownMenu.Content>

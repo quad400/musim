@@ -9,6 +9,13 @@ export enum LoopMode {
 export interface Playlist {
     id: string;
     name: string;
-    image: string | null;
+    image: string | null | undefined;
     tracks: Track[]
+}
+
+export interface Artists {
+    id: string;
+    artist:string;
+    tracks: Track[]
+    // image: string | null | undefined;
 }

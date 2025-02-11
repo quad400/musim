@@ -6,25 +6,23 @@ import { defaultStyles } from '@/constants/styles'
 import { fonts } from '@/constants/fonts'
 import { StopPropagation } from './StopPropagation'
 import PlaylistMenuContent from './PlaylistMenuContent'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 
-const PlaylistItem = ({ item }: { item: Playlist }) => {
+const PlaylistItem = ({ item, onPress }: { item: Playlist, onPress: () => void }) => {
   console.log(item)
   return (
-    <Link href="/(tabs)/playlists/[id]" push asChild>
-      <TouchableOpacity activeOpacity={0.5} style={styles.container}>
-        {item?.image ? <Image source={{ uri: item.image }} style={styles.image} /> :
-          <Image source={{ uri: unknownTrackImageUri }} style={styles.image} />}
-        <View style={styles.content}>
-          <Text style={[defaultStyles.text, { fontFamily: fonts.SoraMedium }]}>{item?.name}</Text>
-        </View>
-        <StopPropagation>
-          <PlaylistMenuContent
-            item={item}
-          />
-        </StopPropagation>
-      </TouchableOpacity>
-    </Link>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={styles.container}>
+      {item?.image ? <Image source={{ uri: item.image }} style={styles.image} /> :
+        <Image source={{ uri: unknownTrackImageUri }} style={styles.image} />}
+      <View style={styles.content}>
+        <Text style={[defaultStyles.text, { fontFamily: fonts.SoraMedium }]}>{item?.name}</Text>
+      </View>
+      <StopPropagation>
+        <PlaylistMenuContent
+          item={item}
+        />
+      </StopPropagation>
+    </TouchableOpacity>
   )
 }
 

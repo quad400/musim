@@ -7,6 +7,9 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import PlaylistItem from '@/components/PlaylistItem'
 import { usePlaylist } from '@/hooks/usePlaylist'
 import { HeaderComponent } from '@/app/add-playlist'
+import { router } from 'expo-router'
+import { Track } from 'react-native-track-player'
+import { Playlist } from '@/interfaces'
 
 const Playlists = () => {
 
@@ -14,8 +17,9 @@ const Playlists = () => {
 
   const { playlists } = usePlaylist()
 
-  console.log("PLAYLIST:    ", playlists)
-
+  const handlePress = (item: Playlist) => {
+    router.push({ pathname: "/(tabs)/playlists/[id]", params: { id: item.id } })
+  }
   return (
     <SafeAreaView style={{ flex: 1, marginTop: top - spacing.base, paddingBottom: bottom }}>
 
@@ -29,12 +33,16 @@ const Playlists = () => {
         }}
         ItemSeparatorComponent={HorizontalSeparator}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <PlaylistItem
-            key={item.id}
-            item={item}
-          />
-        )}
+        renderItem={({ item }) => {
+          return (
+            <PlaylistItem
+              onPress={() => handlePress(item)}
+              key={item.id}
+              item={item}
+            />
+          )
+        }
+        }
       />
     </SafeAreaView>
   )

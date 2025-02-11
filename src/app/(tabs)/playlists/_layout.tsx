@@ -4,7 +4,7 @@ import { router, Stack } from 'expo-router'
 import { defaultStyles } from '@/constants/styles'
 import { colors } from '@/constants/color'
 import { fontSize } from '@/constants/sizes'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, Entypo } from '@expo/vector-icons'
 import FloatingPlayer from '@/components/FloatingPlayer'
 import { fonts } from '@/constants/fonts'
 
@@ -26,7 +26,7 @@ const Layout = () => {
             backgroundColor: colors.background
           },
           headerRight: () => (
-            <TouchableOpacity onPress={() => router.push("/add-playlist")} activeOpacity={0.6} style={{ height: 40, width: 40, justifyContent: 'center', alignItems: 'center', }}>
+            <TouchableOpacity onPress={() => router.push("/new-playlist")} activeOpacity={0.6} style={{ height: 40, width: 40, justifyContent: 'center', alignItems: 'center', }}>
               <AntDesign name='plus' size={24} color={colors.icon} />
             </TouchableOpacity>
           ),
@@ -39,7 +39,24 @@ const Layout = () => {
             }
           }
         }} />
-        <Stack.Screen name='[id]' />
+        <Stack.Screen name='[id]'
+          options={{
+            headerTitle: "",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: colors.background
+            },
+            contentStyle: {
+              marginBottom:100,
+              backgroundColor: colors.background
+            },
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} style={{ height: 40, width: 40, justifyContent: 'center' }}>
+                <Entypo name="chevron-left" size={24} color={colors.icon} />
+              </TouchableOpacity>
+            )
+          }}
+        />
       </Stack>
       <FloatingPlayer />
     </View>

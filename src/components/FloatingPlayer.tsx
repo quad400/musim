@@ -9,14 +9,14 @@ import { useRouter } from 'expo-router'
 import { useActiveTrack } from 'react-native-track-player'
 import { fonts } from '@/constants/fonts'
 import { usePlayer } from '@/hooks/usePlayer'
+import FastImage from 'react-native-fast-image'
 
 const FloatingPlayer = () => {
 
     const router = useRouter()
-    const activeTrack = useActiveTrack()
 
     const { handlePlayPause, player, playing, skipToNext, skipToPrevious } = usePlayer()
-   
+
     const handlePress = () => {
         router.navigate("/player")
     }
@@ -24,11 +24,11 @@ const FloatingPlayer = () => {
     return (
         <TouchableOpacity onPress={handlePress} style={[styles.container, { display: player ? "flex" : "none" }]}>
             <View style={styles.wrapper}>
-                <Image
+                <FastImage
                     source={{ uri: player?.artwork ?? unknownTrackImageUri }}
-                    height={50}
-                    width={50}
                     style={{
+                        width: 50,
+                        height: 50,
                         borderRadius: 10
                     }}
                 />

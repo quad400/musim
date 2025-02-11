@@ -4,14 +4,27 @@ import { AntDesign } from '@expo/vector-icons'
 import { colors } from '@/constants/color'
 import { fontSize, spacing } from '@/constants/sizes'
 import { fonts } from '@/constants/fonts'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import { usePlaylist } from '@/hooks/usePlaylist'
 import PlaylistItem from '@/components/PlaylistItem'
 import HorizontalSeparator from '@/components/HorizontalSeparator'
+import { Playlist } from '@/interfaces'
+import { Track } from 'react-native-track-player'
+import { toast } from 'sonner-native'
 
 const AddPlaylist = () => {
 
-  const { playlists } = usePlaylist()
+  const { playlists, addTrackToPlaylist } = usePlaylist()
+
+  const { track } = useLocalSearchParams<{ track: string }>()
+
+  const trackParsed: Track = track ? JSON.parse(track) : null
+
+  const handlePress = (item: Playlist) => {
+    addTrackToPlaylist(item.id, trackParsed)
+    toast.success("Track added successfully")
+    router.back()
+  }
 
   return (
     <FlatList
@@ -27,6 +40,7 @@ const AddPlaylist = () => {
       ListHeaderComponent={HeaderComponent}
       renderItem={({ item }) => (
         <PlaylistItem
+          onPress={() => handlePress(item)}
           key={item.id}
           item={item}
         />

@@ -1,4 +1,4 @@
-import { View, Text, NativeSyntheticEvent, TextInputFocusEventData, TouchableHighlight, Platform, TouchableOpacity } from 'react-native'
+import { View, NativeSyntheticEvent, TextInputFocusEventData, Platform, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
 import { defaultStyles } from '@/constants/styles'

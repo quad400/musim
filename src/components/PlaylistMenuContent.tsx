@@ -16,7 +16,7 @@ const PlaylistMenuContent = ({ item }: { item: Playlist }) => {
 
     return (
         <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
+            <DropdownMenu.Trigger style={{ padding: 10 }}>
                 <Entypo name="dots-three-horizontal" size={16} color={colors.icon} />
             </DropdownMenu.Trigger>
             <DropdownMenu.Content>

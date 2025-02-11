@@ -2,8 +2,8 @@ import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { fontSize, spacing } from '@/constants/sizes'
 import { colors } from '@/constants/color'
-import { Playlist } from '@/interfaces'
-import { unknownArtistImageUri, unknownTrackImageUri } from '@/constants/images'
+import { Artists, Playlist } from '@/interfaces'
+import { unknownTrackImageUri } from '@/constants/images'
 import { useLocalSearchParams } from 'expo-router'
 import { usePlaylist } from '@/hooks/usePlaylist'
 import { fonts } from '@/constants/fonts'
@@ -11,31 +11,30 @@ import { HeaderComponentPlayer } from '../(songs)'
 import TrackItem from '@/components/TrackItem'
 import { useSelectTrack } from '@/hooks/usePlayer'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import useArtist from '@/hooks/useArtist'
 
-const PlaylistDetail = () => {
+const ArtistDetail = () => {
 
-    const {bottom} = useSafeAreaInsets()
-    const { id } = useLocalSearchParams<{ id: string }>()
+    const { bottom } = useSafeAreaInsets()
+    const { id, tracks } = useLocalSearchParams<{ id: string, tracks: string }>()
 
-    const { getPlaylistById } = usePlaylist()
+    const tracksData = JSON.parse(tracks) as Artists
 
-
-    const playlist = getPlaylistById(id)
-    const { handleSelectedTrack } = useSelectTrack(playlist?.tracks || [])
+    const { handleSelectedTrack } = useSelectTrack(tracksData.tracks || [])
 
 
     return (
         <FlatList
-            data={playlist?.tracks || []}
+            data={tracksData.tracks || []}
             contentContainerStyle={{
                 flexGrow: 1,
-                paddingBottom:bottom + 20,
+                paddingBottom: bottom + 20,
                 backgroundColor: colors.background,
                 paddingHorizontal: spacing.base,
                 gap: spacing.sm
             }}
             ListHeaderComponent={() => <HeaderComponent
-                item={playlist!}
+                item={tracksData}
             />}
             renderItem={({ item, index }) => (
                 <TrackItem
@@ -46,15 +45,15 @@ const PlaylistDetail = () => {
     )
 }
 
-export default PlaylistDetail
+export default ArtistDetail
 
-const HeaderComponent = ({ item }: { item: Playlist }) => {
+const HeaderComponent = ({ item }: { item: Artists }) => {
 
     return (
         <View style={styles.container}>
 
-            <Image source={{ uri: item?.image ? item.image : unknownArtistImageUri }} style={styles.image} />
-            <Text style={styles.title}>{item?.name}</Text>
+            <Image source={{ uri: unknownTrackImageUri }} style={styles.image} />
+            <Text style={styles.title}>{item?.artist}</Text>
             <HeaderComponentPlayer
                 tracks={item?.tracks || []}
             />

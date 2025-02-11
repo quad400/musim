@@ -3,38 +3,42 @@ import React from 'react'
 import { fontSize, spacing } from '@/constants/sizes'
 import { colors } from '@/constants/color'
 import { unknownTrackImageUri } from '@/constants/images'
-import { Track, useActiveTrack } from 'react-native-track-player'
+import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import { fonts } from '@/constants/fonts'
 import LoaderKit from 'react-native-loader-kit'
 import { StopPropagation } from './StopPropagation'
 import MenuContent from './MenuContent'
+import FastImage from 'react-native-fast-image'
 
 
 const TrackItem = ({ item, onPress }: { item: Track, onPress: () => void }) => {
 
   const activeTrack = useActiveTrack()
+  const { playing } = useIsPlaying()
 
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={styles.container}>
       <View style={styles.wrapper}>
-        <ImageBackground
-          source={{ uri: item.artwork ?? unknownTrackImageUri }}
-          resizeMode='cover'
-          style={[styles.image, { 
-            justifyContent: "center", 
-            alignItems: "center", 
+        <FastImage
+          source={{
+            uri: item.artwork ?? unknownTrackImageUri, priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.cover}
+          style={[styles.image, {
+            justifyContent: "center",
+            alignItems: "center",
             borderRadius: spacing.sm,
             overflow: "hidden",
           }]}
-        >
 
-          {activeTrack?.url === item.url && <LoaderKit
-            style={{ width: 30, height: 30, zIndex: 10 }}
+        >
+         {activeTrack?.url === item.url && playing && <LoaderKit
+            style={{ width: 20, height: 20, zIndex: 10 }}
             name={'LineScalePulseOut'}
             color={colors.text}
           />}
-          {activeTrack?.url === item.url && <View style={{
+          {activeTrack?.url === item.url && playing && <View style={{
             width: 50,
             height: 50,
             borderRadius: spacing.sm,
@@ -46,8 +50,37 @@ const TrackItem = ({ item, onPress }: { item: Track, onPress: () => void }) => {
             bottom: 0,
 
           }} />
-          }</ImageBackground>
-        <View style={{ marginRight:spacing.sm,flex: 1 }}>
+          } 
+        </FastImage>
+        {/* <ImageBackground
+          source={{ uri: item.artwork ?? unknownTrackImageUri }}
+          resizeMode='cover'
+          style={[styles.image, {
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: spacing.sm,
+            overflow: "hidden",
+          }]}
+        >
+          {activeTrack?.url === item.url && playing && <LoaderKit
+            style={{ width: 20, height: 20, zIndex: 10 }}
+            name={'LineScalePulseOut'}
+            color={colors.text}
+          />}
+          {activeTrack?.url === item.url && playing && <View style={{
+            width: 50,
+            height: 50,
+            borderRadius: spacing.sm,
+            position: "absolute",
+            backgroundColor: "#00000050",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+
+          }} />
+          }</ImageBackground> */}
+        <View style={{ marginRight: spacing.sm, flex: 1 }}>
 
           <Text numberOfLines={1} ellipsizeMode='tail' style={styles.title}>{item.title}</Text>
           <Text style={styles.text}>{item.artist}</Text>

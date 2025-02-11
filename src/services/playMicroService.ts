@@ -1,3 +1,5 @@
+import { tracks } from "@/constants/data";
+import { Artists } from "@/interfaces";
 import { shuffleArray } from "@/utils/algorithm";
 import TrackPlayer, { Track } from "react-native-track-player";
 
