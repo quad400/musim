@@ -8,7 +8,7 @@ import { router } from "expo-router"
 
 const MenuContent = ({ item }: { item: Track }) => {
 
-    const { isFavorite, toggleFavorite } = useFavorite()
+    const { isFavorite, toggleFavorite } = useFavorite({search:""})
 
     return (
         <DropdownMenu.Root>

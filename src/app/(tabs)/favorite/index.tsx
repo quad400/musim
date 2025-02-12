@@ -14,12 +14,20 @@ import { useSelectTrack } from '@/hooks/usePlayer'
 import { useFavorite } from '@/hooks/useFavorite'
 import EmptyList from '@/components/EmptyList'
 import { HeaderComponentPlayer } from '../(songs)'
+import { useSearchLayout } from '@/hooks/useSearchLayout'
 
 const Favorites = () => {
 
   const { bottom } = useSafeAreaInsets()
 
-  const { favorites } = useFavorite()
+    const search = useSearchLayout({
+        searchBarOptions: {
+            placeholder: "Find in favorite"
+        }
+    })
+    
+
+  const { favorites } = useFavorite({search})
 
   const { handleSelectedTrack } = useSelectTrack(favorites)
 

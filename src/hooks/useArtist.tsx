@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { tracks } from '@/constants/data'
 import { Track } from 'react-native-track-player'
 import { Artists } from '@/interfaces'
 
-const useArtist = () => {
+const useArtist = ({ search }: { search: string }) => {
 
     const [artists, setArtists] = useState<Artists[]>()
 
@@ -32,11 +32,21 @@ const useArtist = () => {
 
 
     useEffect(() => {
-        if(artists) return;
+        if (artists) return;
         getArtist()
     }, [getArtist])
 
-    return { artists }
+
+    const artistList = useMemo(() => {
+        if (!search) {
+            return artists
+        } else {
+            const filteredArtist = artists?.filter((artist: Artists) => artist.artist?.toLowerCase().includes(search.toLowerCase()))
+            return filteredArtist
+        }
+    }, [artists, search])
+
+    return { artists: artistList }
 }
 
 export default useArtist

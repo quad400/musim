@@ -6,11 +6,16 @@ import { spacing } from '@/constants/sizes'
 import HorizontalSeparator from '@/components/HorizontalSeparator'
 import { colors } from '@/constants/color'
 import ArtistItem from '@/components/ArtistItem'
+import { useSearchLayout } from '@/hooks/useSearchLayout'
 
 const Page = () => {
   const { bottom } = useSafeAreaInsets()
-
-  const { artists } = useArtist()
+  const search = useSearchLayout({
+    searchBarOptions: {
+      placeholder: "Find in artist"
+    }
+  })
+  const { artists } = useArtist({ search })
 
   return (
 

@@ -29,15 +29,7 @@ const Layout = () => {
                 (Platform.OS === "android" && <TouchableOpacity activeOpacity={0.6}>
                     <AntDesign name='search1' size={24} color={colors.icon} />
                 </TouchableOpacity>)
-            ),
-            headerSearchBarOptions: {
-                tintColor: colors.primary,
-                hideWhenScrolling: true,
-                placeholder: 'Find in Songs',
-                onChangeText: (query: NativeSyntheticEvent<TextInputFocusEventData>) => {
-                    console.log(query.nativeEvent.text)
-                }
-            }
+            )
         }} />
     </Stack>
     <FloatingPlayer />

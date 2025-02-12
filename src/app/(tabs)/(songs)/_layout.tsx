@@ -6,8 +6,12 @@ import { colors } from '@/constants/color'
 import { AntDesign } from '@expo/vector-icons'
 import { fontSize } from '@/constants/sizes'
 import FloatingPlayer from '@/components/FloatingPlayer'
+import { useAppStore } from '@/hooks/store'
+import { Track } from 'react-native-track-player'
 
 const Layout = () => {
+
+    
     return (
         <View style={defaultStyles.container}>
             <Stack>
@@ -29,15 +33,7 @@ const Layout = () => {
                         (Platform.OS === "android" && <TouchableOpacity activeOpacity={0.6}>
                             <AntDesign name='search1' size={24} color={colors.icon} />
                         </TouchableOpacity>)
-                    ),
-                    headerSearchBarOptions: {
-                        tintColor: colors.primary,
-                        hideWhenScrolling: true,
-                        placeholder: 'Find in Songs',
-                        onChangeText: (query: NativeSyntheticEvent<TextInputFocusEventData>) => {
-                            console.log(query.nativeEvent.text)
-                        }
-                    }
+                    )
                 }} />
             </Stack>
             <FloatingPlayer />

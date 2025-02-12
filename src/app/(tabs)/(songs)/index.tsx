@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Platform } from 'react-native'
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { fontSize, spacing } from '@/constants/sizes'
 import { FontAwesome6, Ionicons } from '@expo/vector-icons'
 import { colors } from '@/constants/color'
@@ -12,10 +12,23 @@ import { playAll, shuffleAll } from '@/services/playMicroService'
 import { fonts } from '@/constants/fonts'
 import { useSelectTrack } from '@/hooks/usePlayer'
 import EmptyList from '@/components/EmptyList'
+import { useAppStore } from '@/hooks/store'
+import { useSearchLayout } from '@/hooks/useSearchLayout'
+import { useSongs } from '@/hooks/useSongs'
 
 const Songs = () => {
 
     const { bottom } = useSafeAreaInsets()
+
+    const search = useSearchLayout({
+        searchBarOptions: {
+            placeholder: "Find in songs"
+        }
+    })
+
+    const songs = useSongs({ tracks, search })
+
+
 
     const { handleSelectedTrack } = useSelectTrack(tracks)
 
@@ -24,7 +37,7 @@ const Songs = () => {
 
         <FlatList
             contentInsetAdjustmentBehavior='automatic'
-            data={tracks}
+            data={songs}
             contentContainerStyle={{
                 paddingHorizontal: spacing.base,
                 flexGrow: 1,

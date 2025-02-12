@@ -35,21 +35,21 @@ export const App = () => {
     "Sora-Regular": require("../../assets/fonts/Sora-Regular.ttf"),
   })
 
-  const handleLoadSplashScreen = useCallback(() => {
+
+  useEffect(() => {
+    if (initialized.current) return
     setupPlayer().then(() => {
-      SplashScreen.hideAsync()
       initializePlayer()
       initialized.current = true
     }).catch(e => {
       initialized.current = false
       console.log("Error setting up player", e)
     })
-  }, [])
-
+  }, [initializePlayer, initialized.current])
 
   useEffect(() => {
     if (loaded || error) {
-      handleLoadSplashScreen()
+      SplashScreen.hideAsync()
     }
   }, [loaded, error])
 
@@ -66,6 +66,9 @@ export const App = () => {
               backgroundColor: colors.backgroundAlt
             }
           }}
+        // loadingIcon={{
+
+        // }}
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

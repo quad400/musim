@@ -10,6 +10,7 @@ import { HeaderComponent } from '@/app/add-playlist'
 import { router } from 'expo-router'
 import { Track } from 'react-native-track-player'
 import { Playlist } from '@/interfaces'
+import EmptyList from '@/components/EmptyList'
 
 const Playlists = () => {
 
@@ -31,6 +32,9 @@ const Playlists = () => {
           paddingHorizontal: spacing.base,
           gap: spacing.sm
         }}
+        ListEmptyComponent={() => (
+          <EmptyList title='You have no Playlist' />
+        )}
         ItemSeparatorComponent={HorizontalSeparator}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => {

@@ -21,7 +21,9 @@ const TrackItem = ({ item, onPress }: { item: Track, onPress: () => void }) => {
     <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={styles.container}>
       <View style={styles.wrapper}>
         <FastImage
+        
           source={{
+            
             uri: item.artwork ?? unknownTrackImageUri, priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}

@@ -1,8 +1,8 @@
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useMMKVObject } from "react-native-mmkv"
 import { Track } from "react-native-track-player"
 
-export const useFavorite = () => {
+export const useFavorite = ({ search }: { search: string }) => {
 
     const [favorites, setFavorites] = useMMKVObject<Track[]>("favorites")
 
@@ -22,8 +22,20 @@ export const useFavorite = () => {
     }, [favorites, setFavorites, isFavorite])
 
 
+
+
+    const favoritesData = useMemo(() => {
+        if (!search) {
+            return favorites
+        } else {
+            const filteredSongs = favorites?.filter((song: Track) => song.title?.toLowerCase().includes(search.toLowerCase()))
+            return filteredSongs
+        }
+    }, [favorites, search])
+
+
     return {
         isFavorite, toggleFavorite,
-        favorites: favorites ?? []
+        favorites: favoritesData ?? []
     }
 }
