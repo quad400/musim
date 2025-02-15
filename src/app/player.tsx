@@ -24,7 +24,7 @@ const Player = () => {
     const { loop, setLoopMode } = useLoopMode();
 
     const { duration, position } = useProgress();
-    const { isFavorite, toggleFavorite } = useFavorite()
+    const { isFavorite, toggleFavorite } = useFavorite({search: ""})
     const trackElapsedTime = formatSecondsToMinutes(duration)
     const trackRemainingTime = formatSecondsToMinutes(duration - position)
 

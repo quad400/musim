@@ -9,7 +9,6 @@ import PlaylistMenuContent from './PlaylistMenuContent'
 import { Link, router } from 'expo-router'
 
 const PlaylistItem = ({ item, onPress }: { item: Playlist, onPress: () => void }) => {
-  console.log(item)
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={styles.container}>
       {item?.image ? <Image source={{ uri: item.image }} style={styles.image} /> :
