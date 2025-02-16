@@ -2,7 +2,7 @@ import axios, { AxiosResponseHeaders } from 'axios'
 
 const api = axios.create({
     baseURL: 'https://api.deezer.com/',
-    timeout: 10000,
+    timeout: 5000,
 })
 
 api.interceptors.response.use(

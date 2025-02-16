@@ -13,6 +13,7 @@ import { colors } from "@/constants/color";
 import { AntDesign } from "@expo/vector-icons";
 import { Toaster } from "sonner-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useOnlineManager } from "@/hooks/useOnlineManager";
 
 const queryClient = new QueryClient({
   defaultOptions:{}
@@ -26,7 +27,9 @@ SplashScreen.preventAutoHideAsync();
 export const App = () => {
   const initialized = useRef(false);
   const { initializePlayer } = useInitializePlayer();
+  // const online = useOnlineManager()
 
+  // console.log("Online", online)
   useEffect(() => {
     if (initialized.current) return;
     setupPlayer()
@@ -149,6 +152,7 @@ const RootLayout = () => {
           },
         }}
       />
+      <Stack.Screen name="search" />
     </Stack>
   );
 };

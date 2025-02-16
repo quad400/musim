@@ -1,5 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import { defaultStyles } from '@/constants/styles'
 import { colors } from '@/constants/color';

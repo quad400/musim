@@ -1,4 +1,4 @@
-import { Track } from "react-native-track-player"
+import { Track } from "react-native-track-player";
 
 export enum LoopMode {
     NONE,
@@ -10,7 +10,7 @@ export interface Playlist {
     id: string;
     name: string;
     image: string | null | undefined;
-    tracks: Track[]
+    tracks: TrackMapper[]
 }
 
 export interface Artists {
@@ -18,4 +18,13 @@ export interface Artists {
     artist:string;
     tracks: Track[]
     // image: string | null | undefined;
+}
+
+export interface TrackMapper{
+    id: number;
+    title: string;
+    artist: string;
+    artwork: string;
+    url: string;
+    artwork_full: string;
 }

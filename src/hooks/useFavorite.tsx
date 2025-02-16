@@ -1,16 +1,16 @@
+import { TrackMapper } from "@/interfaces"
 import { useCallback, useMemo } from "react"
 import { useMMKVObject } from "react-native-mmkv"
-import { Track } from "react-native-track-player"
 
 export const useFavorite = ({ search }: { search: string }) => {
 
-    const [favorites, setFavorites] = useMMKVObject<Track[]>("favorites")
+    const [favorites, setFavorites] = useMMKVObject<TrackMapper[]>("favorites")
 
-    const isFavorite = useCallback((track: Track) => {
+    const isFavorite = useCallback((track: TrackMapper) => {
         return favorites?.some((item) => item.url === track.url)
     }, [favorites])
 
-    const toggleFavorite = useCallback((track: Track) => {
+    const toggleFavorite = useCallback((track: TrackMapper) => {
         const currentFavorites = favorites ?? []; // Ensure it's always an array
 
         if (isFavorite(track)) {
@@ -28,7 +28,7 @@ export const useFavorite = ({ search }: { search: string }) => {
         if (!search) {
             return favorites
         } else {
-            const filteredSongs = favorites?.filter((song: Track) => song.title?.toLowerCase().includes(search.toLowerCase()))
+            const filteredSongs = favorites?.filter((song: TrackMapper) => song.title?.toLowerCase().includes(search.toLowerCase()))
             return filteredSongs
         }
     }, [favorites, search])

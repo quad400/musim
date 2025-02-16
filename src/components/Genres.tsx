@@ -1,5 +1,6 @@
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -25,17 +26,20 @@ const Genres = ({
   );
 
   return (
-    <FlatList
-      data={genres}
+    <ScrollView
       horizontal={true}
       scrollEventThrottle={16} // Optimize scroll tracking
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
+        backgroundColor:colors.background,
         gap: spacing.sm,
+        height: spacing.xl * 2,
+        justifyContent: "center",
+        alignItems: "center",
         paddingHorizontal: spacing.base,
-        paddingVertical: spacing.sm,
       }}
-      renderItem={({ item }) => (
+    >
+      {genres.map((item) => (
         <TouchableOpacity
           activeOpacity={0.4}
           onPress={() => handleSelect(item.id)}
@@ -59,8 +63,8 @@ const Genres = ({
             {item.name}
           </Text>
         </TouchableOpacity>
-      )}
-    />
+      ))}
+    </ScrollView>
   );
 };
 

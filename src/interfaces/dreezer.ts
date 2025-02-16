@@ -59,8 +59,10 @@ export type Playlist = {
   id: number;
   title: string;
   public: boolean;
+  description: string;
   nb_tracks: number;
   link: string;
+  fans: number;
   picture: string;
   picture_small: string;
   picture_medium: string;
@@ -73,6 +75,10 @@ export type Playlist = {
   mod_date: string;
   md5_image: string;
   picture_type: string;
+  tracks:{
+    checksum: string;
+    data: Track[];
+  }
   user: {
     id: number;
     name: string;

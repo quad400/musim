@@ -1,19 +1,13 @@
-import {
-  View,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  Platform,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { defaultStyles } from "@/constants/styles";
 import { colors } from "@/constants/color";
 import { AntDesign } from "@expo/vector-icons";
-import { fontSize } from "@/constants/sizes";
+import { fontSize, spacing } from "@/constants/sizes";
 import FloatingPlayer from "@/components/FloatingPlayer";
 import { fonts } from "@/constants/fonts";
+import IconButton from "@/components/buttons/IconButton";
 
 const Layout = () => {
   return (
@@ -26,15 +20,7 @@ const Layout = () => {
             headerLeft: () => {
               return (
                 <View>
-                  <Text
-                    style={{
-                      fontFamily: fonts.SoraBold,
-                      fontSize:fontSize.lg,
-                      color:colors.text
-                    }}
-                  >
-                    Browse
-                  </Text>
+                  <Text style={styles.title}>Browse</Text>
                 </View>
               );
             },
@@ -46,10 +32,133 @@ const Layout = () => {
               backgroundColor: colors.background,
             },
             headerRight: () => (
-              <TouchableOpacity activeOpacity={0.6}>
+              <IconButton onPress={() => router.push("/search")}>
                 <AntDesign name="search1" size={24} color={colors.icon} />
-              </TouchableOpacity>
+              </IconButton>
             ),
+          }}
+        />
+        <Stack.Screen
+          name="trending-now"
+          options={{
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: colors.background,
+            },
+            contentStyle: {
+              backgroundColor: colors.background,
+            },
+            headerLeft: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: spacing.sm,
+                  }}
+                >
+                  <IconButton onPress={() => router.back()}>
+                    <AntDesign name="left" size={24} color={colors.icon} />
+                  </IconButton>
+                  <Text style={[styles.title, { fontSize: fontSize.base }]}>
+                    Trending Now
+                  </Text>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="top-artist/index"
+          options={{
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: colors.background,
+            },
+            contentStyle: {
+              backgroundColor: colors.background,
+            },
+            headerLeft: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: spacing.sm,
+                  }}
+                >
+                  <IconButton onPress={() => router.back()}>
+                    <AntDesign name="left" size={24} color={colors.icon} />
+                  </IconButton>
+                  <Text style={[styles.title, { fontSize: fontSize.base }]}>
+                    Artists For You
+                  </Text>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="hot-list/index"
+          options={{
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: colors.background,
+            },
+            contentStyle: {
+              backgroundColor: colors.background,
+            },
+            headerLeft: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: spacing.sm,
+                  }}
+                >
+                  <IconButton onPress={() => router.back()}>
+                    <AntDesign name="left" size={24} color={colors.icon} />
+                  </IconButton>
+                  <Text style={[styles.title, { fontSize: fontSize.base }]}>
+                    Hotlist
+                  </Text>
+                </View>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="hot-list/[id]"
+          
+          options={{
+            headerTitleStyle:{
+              color: colors.text,
+              fontFamily: fonts.SoraBold,
+              fontSize: fontSize.base
+            },
+            headerStyle: {
+              backgroundColor: colors.background,
+            },
+            contentStyle: {
+              backgroundColor: colors.background,
+            },
+            headerTitleAlign: "center",
+            headerLeft: () => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: spacing.sm,
+                  }}
+                >
+                  <IconButton onPress={() => router.back()}>
+                    <AntDesign name="left" size={24} color={colors.icon} />
+                  </IconButton>
+                </View>
+              );
+            },
           }}
         />
       </Stack>
@@ -59,3 +168,11 @@ const Layout = () => {
 };
 
 export default Layout;
+
+const styles = StyleSheet.create({
+  title: {
+    fontFamily: fonts.SoraBold,
+    fontSize: fontSize.lg,
+    color: colors.text,
+  },
+});
