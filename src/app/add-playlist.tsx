@@ -21,7 +21,7 @@ const AddPlaylist = () => {
   const trackParsed: Track = track ? JSON.parse(track) : null
 
   const handlePress = (item: Playlist) => {
-    addTrackToPlaylist(item.id, trackParsed)
+    // addTrackToPlaylist(item.id, trackParsed)
     toast.success("Track added successfully")
     router.back()
   }

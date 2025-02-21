@@ -1,6 +1,13 @@
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
-import React, { useEffect, useLayoutEffect } from "react";
-import { router, useLocalSearchParams, useNavigation } from "expo-router";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import React, { useLayoutEffect } from "react";
+import {  useLocalSearchParams, useNavigation } from "expo-router";
 import { usePlaylistById } from "@/hooks/usePlaylist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/constants/color";
@@ -9,9 +16,10 @@ import PlaylistTrackItem from "@/components/playlists/PlaylistTrackItem";
 import { fonts } from "@/constants/fonts";
 import { unknownArtistImageUri } from "@/constants/images";
 import PlayShuffle from "@/components/PlayShuffle";
-import { Playlist, Track } from "@/interfaces/dreezer";
+import { Playlist } from "@/interfaces/dreezer";
 import { useSelectTrack } from "@/hooks/usePlayer";
 import { trackMapper } from "@/utils";
+import { RefreshControl } from "react-native-gesture-handler";
 
 const Page = () => {
   const { bottom } = useSafeAreaInsets();
@@ -19,10 +27,8 @@ const Page = () => {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data, isFetching } = usePlaylistById(id);
+  const { data, isLoading, refetch, isRefetching } = usePlaylistById(id);
   const { handleSelectedTrack } = useSelectTrack(data?.tracks.data || []);
-
-  console.log(data?.tracks);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -30,18 +36,33 @@ const Page = () => {
     });
   }, [navigation, data?.title]);
 
-  if (!data) return null;
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <FlatList
-      data={data.tracks.data || []}
+      data={data?.tracks.data || []}
       contentContainerStyle={{
+
         flexGrow: 1,
-        paddingBottom: bottom + 20,
+        paddingBottom: bottom + 110,
         backgroundColor: colors.background,
         paddingHorizontal: spacing.base,
         gap: spacing.sm,
       }}
+      refreshControl={
+        <RefreshControl
+          tintColor={colors.primary}
+          refreshing={isRefetching}
+          onRefresh={refetch}
+          colors={[colors.primary]}
+        />
+      }
       ListHeaderComponent={() => <HeaderComponent item={data} />}
       renderItem={({ item, index }) => (
         <PlaylistTrackItem
@@ -56,19 +77,22 @@ const Page = () => {
 
 export default Page;
 
-const HeaderComponent = ({
-  item,
-}: {
-  item: Playlist
-}) => {
+const HeaderComponent = ({ item }: { item: Playlist | undefined }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: item?.picture ? item.picture : unknownArtistImageUri }}
+        source={{ uri: item?.picture_big ? item.picture_big : unknownArtistImageUri }}
         style={styles.image}
       />
-      <Text style={styles.title}>{item?.title}</Text>
-      <PlayShuffle tracks={item?.tracks.data.map((item)=>trackMapper(item)) || []} />
+      <View style={styles.wrapper}>
+        <Text style={[styles.title, { color: colors.textMuted }]}>
+          {item?.creator?.name}
+        </Text>
+        <Text style={styles.title}>{item?.nb_tracks} Songs</Text>
+      </View>
+      <PlayShuffle
+        tracks={item?.tracks.data.map((item) => trackMapper(item)) || []}
+      />
     </View>
   );
 };
@@ -79,6 +103,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  wrapper: {
+    alignItems: "center",
+  },
   image: {
     width: "100%",
     height: 350,
@@ -86,7 +113,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   title: {
-    fontSize: fontSize.lg,
+    fontSize: fontSize.md,
     color: colors.text,
     fontFamily: fonts.SoraSemiBold,
     marginVertical: spacing.base,

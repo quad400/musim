@@ -4,10 +4,15 @@ import { Album } from "@/interfaces/dreezer";
 import { fontSize, spacing } from "@/constants/sizes";
 import { fonts } from "@/constants/fonts";
 import { colors } from "@/constants/color";
+import { router } from "expo-router";
 
 const TopAlbumCard = ({ item }: { item: Album }) => {
   return (
-    <TouchableOpacity activeOpacity={0.4} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => router.push(`/albums/${item.id}`)}
+      activeOpacity={0.4}
+      style={styles.container}
+    >
       <Image source={{ uri: item.cover_medium }} style={styles.imageCard} />
       <View style={styles.wrapper}>
         <Text style={styles.title} ellipsizeMode="tail" numberOfLines={1}>

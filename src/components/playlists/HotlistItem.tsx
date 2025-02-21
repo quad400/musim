@@ -23,7 +23,7 @@ const HotlistItem = ({
       <View style={styles.wrapper}>
         <FastImage
           source={{
-            uri: item.picture ?? unknownTrackImageUri,
+            uri: item.picture_big ?? unknownTrackImageUri,
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}

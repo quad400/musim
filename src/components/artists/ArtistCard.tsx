@@ -5,10 +5,12 @@ import FastImage from "react-native-fast-image";
 import { fonts } from "@/constants/fonts";
 import { colors } from "@/constants/color";
 import { fontSize } from "@/constants/sizes";
+import { router } from "expo-router";
 
 const ArtistCard = ({ item }: { item: Artist }) => {
+  
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity activeOpacity={0.4} onPress={()=>router.push(`/artists/${item.id}`)} style={styles.container}>
       <FastImage source={{ uri: item.picture_medium }} style={styles.image} />
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.name}>
         {item.name}

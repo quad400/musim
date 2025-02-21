@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from "react-native";
 import React from "react";
 import { colors } from "@/constants/color";
 import { unknownTrackImageUri } from "@/constants/images";
@@ -9,8 +15,15 @@ import { useRouter } from "expo-router";
 import { fonts } from "@/constants/fonts";
 import { usePlayer } from "@/hooks/usePlayer";
 import FastImage from "react-native-fast-image";
+import { StyleSheetProperties } from "react-native";
+import { StyleProp } from "react-native";
+import { ViewStyle } from "react-native";
 
-const FloatingPlayer = () => {
+const FloatingPlayer = ({
+  container,
+}: {
+  container?: StyleProp<ViewStyle>;
+}) => {
   const router = useRouter();
 
   const { handlePlayPause, player, playing, skipToNext, skipToPrevious } =
@@ -20,17 +33,26 @@ const FloatingPlayer = () => {
     router.navigate("/player");
   };
 
+  // console.log("PLAYERSSSSSS: ", player);
+
+  // if (!player) {
+  //   return null;
+  // }
+
   return (
     <TouchableOpacity
+    activeOpacity={0.8}
       onPress={handlePress}
-      style={[styles.container, { display: player ? "flex" : "none" }]}
+      style={[
+        styles.container,
+        { display: player ? "flex" : "none" },
+        container,
+      ]}
     >
       <View style={styles.wrapper}>
         <FastImage
           source={{
-            uri:
-              player?.artwork ??
-              unknownTrackImageUri,
+            uri: player?.artwork ?? unknownTrackImageUri,
           }}
           style={{
             width: 50,

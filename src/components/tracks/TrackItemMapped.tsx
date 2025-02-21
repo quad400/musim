@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import React from "react";
 import { fontSize, spacing } from "@/constants/sizes";
@@ -16,8 +15,6 @@ import { StopPropagation } from "../StopPropagation";
 import MenuContent from "../MenuContent";
 import FastImage from "react-native-fast-image";
 import { TrackMapper } from "@/interfaces";
-import { Track } from "@/interfaces/dreezer";
-import { trackMapper } from "@/utils";
 
 const TrackItemMapped = ({
   item,

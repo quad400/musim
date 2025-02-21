@@ -1,6 +1,4 @@
-import {
-  FlatList,
-} from "react-native";
+import { FlatList } from "react-native";
 import React from "react";
 import { spacing } from "@/constants/sizes";
 import { colors } from "@/constants/color";
@@ -25,7 +23,7 @@ const Favorites = () => {
   const { favorites } = useFavorite({ search });
 
   const { handleSelectedTrack } = useSelectTrackMapped(favorites);
-
+  console.log(favorites);
   return (
     <FlatList
       contentInsetAdjustmentBehavior="automatic"

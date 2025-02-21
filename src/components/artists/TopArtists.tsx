@@ -5,7 +5,6 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import HorizontalSeparator from "../HorizontalSeparator";
@@ -14,11 +13,10 @@ import SkeletonLoader from "../SkeletonLoader";
 import { fonts } from "@/constants/fonts";
 import TopArtistCard from "./TopArtistCard";
 import TextButton from "../TextButton";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 
 const TopArtists = ({ genreId }: { genreId: number }) => {
   const { data, isFetching, refetch } = useTopArtists(genreId);
-  
   
   useEffect(() => {
     if(genreId){
@@ -30,10 +28,10 @@ const TopArtists = ({ genreId }: { genreId: number }) => {
   if (!data && isFetching) {
     return <SkeletonLoader width={100} height={100} />;
   }
-
+  
   return (
     <View>
-      <HeaderComponent />
+      {data && data?.length > 0 && <HeaderComponent />}
       <FlatList
         data={data}
         horizontal
@@ -51,7 +49,7 @@ const TopArtists = ({ genreId }: { genreId: number }) => {
         renderItem={({ item, index }) => (
           <TopArtistCard item={item} key={index} />
         )}
-      />
+        />
     </View>
   );
 };
@@ -59,10 +57,12 @@ const TopArtists = ({ genreId }: { genreId: number }) => {
 export default TopArtists;
 
 const HeaderComponent = () => {
+  const router = useRouter();
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Top Artists</Text>
-      <TextButton onPress={()=>router.push("/(tabs)/(songs)/top-artist")} label="See All" />
+      <TextButton onPress={()=>router.push("/artists/top-artists")} label="See All" />
     </View>
   );
 };

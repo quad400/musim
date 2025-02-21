@@ -14,6 +14,8 @@ import { useTopAlbum } from "@/hooks/useQuery";
 import { fonts } from "@/constants/fonts";
 import TopAlbumCard from "./TopAlbumCard";
 import LargeCardSkeleton from "../LargeCardSkeleton";
+import TextButton from "../TextButton";
+import { router } from "expo-router";
 
 const TopAlbum = ({ genreId }: { genreId: number }) => {
   const { data, isFetching, refetch } = useTopAlbum(genreId);
@@ -30,7 +32,7 @@ const TopAlbum = ({ genreId }: { genreId: number }) => {
 
   return (
     <View>
-      <HeaderComponent />
+      {data && data?.length > 0 && <HeaderComponent />}
       <FlatList
         data={data}
         horizontal
@@ -59,9 +61,8 @@ const HeaderComponent = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Trending Album</Text>
-      <TouchableOpacity activeOpacity={0.4}>
-        <Text style={styles.seeAll}>See All</Text>
-      </TouchableOpacity>
+
+      <TextButton label="See All" onPress={() => router.push("/albums")} />
     </View>
   );
 };

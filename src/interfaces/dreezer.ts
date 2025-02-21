@@ -79,7 +79,7 @@ export type Playlist = {
     checksum: string;
     data: Track[];
   }
-  user: {
+  creator: {
     id: number;
     name: string;
     tracklist: string;
@@ -87,3 +87,5 @@ export type Playlist = {
   };
   type: string;
 };
+
+export type SearchType = "album" | "artist" | "playlist" | "track";

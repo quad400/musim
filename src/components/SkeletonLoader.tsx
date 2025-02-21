@@ -35,7 +35,7 @@ const SkeletonLoader = ({
       <Animated.View
         style={[
           styles.shimmer,
-          { transform: [{ translateX: shimmerInterpolation }] },
+          // { transform: [{ translateX: shimmerInterpolation }] },
         ]}
       >
         <LinearGradient

@@ -32,7 +32,7 @@ const TopPlaylist = ({ genreId }: { genreId: number }) => {
 
   return (
     <View>
-      <HeaderComponent />
+      {data && data?.length > 0 && <HeaderComponent />}
       <FlatList
         data={data}
         horizontal

@@ -1,11 +1,7 @@
 import * as DropdownMenu from "zeego/dropdown-menu"
 import { Entypo } from '@expo/vector-icons'
 import { colors } from "@/constants/color"
-import { Track } from "react-native-track-player"
-import { useFavorite } from "@/hooks/useFavorite"
-import { router } from "expo-router"
 import { Playlist } from "@/interfaces"
-import { } from 'react-native-ios-utilities';
 import { Text } from "react-native"
 import { usePlaylist } from "@/hooks/usePlaylist"
 

@@ -32,7 +32,6 @@ const AudioProgress = () => {
     const min = useSharedValue(0)
     const max = useSharedValue(1)
 
-    // console.log(volume)
 
     return (
         <Slider

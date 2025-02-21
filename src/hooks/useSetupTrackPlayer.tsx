@@ -23,5 +23,5 @@ export const useInitializePlayer = () => {
         await TrackPlayer.add(player)
     }
 
-    return {initializePlayer}
+    return {initializePlayer,player}
 }

@@ -20,7 +20,7 @@ const PlayShuffle = ({ tracks }: { tracks: TrackMapper[] }) => {
       ]}
     >
       <TouchableOpacity
-        onPress={() => playAll([])}
+        onPress={() => playAll(tracks)}
         activeOpacity={0.6}
         style={[
           styles.containerRowCenter,
@@ -31,6 +31,7 @@ const PlayShuffle = ({ tracks }: { tracks: TrackMapper[] }) => {
             borderRadius: 15,
           },
         ]}
+        
       >
         <FontAwesome6 name="play" size={20} color={colors.primary} />
         <Text
@@ -44,7 +45,7 @@ const PlayShuffle = ({ tracks }: { tracks: TrackMapper[] }) => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => shuffleAll([])}
+        onPress={() => shuffleAll(tracks)}
         style={[
           styles.containerRowCenter,
           {

@@ -17,44 +17,44 @@ export type MovingTextProps = {
 }
 
 const MovingText = ({ text, animationThreshold, styles}: MovingTextProps) => {
-	const translateX = useSharedValue(0)
+	// const translateX = useSharedValue(0)
 	const shouldAnimate = text.length >= animationThreshold
 
 	const textWidth = text.length * 3
 
-	useEffect(() => {
-		if (!shouldAnimate) return
+	// useEffect(() => {
+	// 	if (!shouldAnimate) return
 
-		translateX.value = withDelay(
-			1000,
-			withRepeat(
-				withTiming(-textWidth, {
-					duration: 5000,
-					easing: Easing.linear,
-				}),
-				-1,
-				true,
-			),
-		)
+	// 	// translateX.value = withDelay(
+	// 	// 	1000,
+	// 	// 	withRepeat(
+	// 	// 		withTiming(-textWidth, {
+	// 	// 			duration: 5000,
+	// 	// 			easing: Easing.linear,
+	// 	// 		}),
+	// 	// 		-1,
+	// 	// 		true,
+	// 	// 	),
+	// 	// )
 
-		return () => {
-			cancelAnimation(translateX)
-			translateX.value = 0
-		}
-	}, [translateX, text, animationThreshold, shouldAnimate, textWidth])
+	// 	return () => {
+	// 		cancelAnimation(translateX)
+	// 		translateX.value = 0
+	// 	}
+	// }, [translateX, text, animationThreshold, shouldAnimate, textWidth])
 
-	const animatedStyle = useAnimatedStyle(() => {
-		return {
-			transform: [{ translateX: translateX.value }],
-		}
-	})
+	// const animatedStyle = useAnimatedStyle(() => {
+	// 	return {
+	// 		transform: [{ translateX: translateX.value }],
+	// 	}
+	// })
 
 	return (
 		<Animated.Text
 			numberOfLines={1}
 			style={[
 				styles,
-				animatedStyle,
+				// animatedStyle,
 				shouldAnimate && {
 					width: 9999, // preventing the ellipsis from appearing
 					paddingLeft: 16, // avoid the initial character being barely visible

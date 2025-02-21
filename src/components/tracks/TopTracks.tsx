@@ -34,7 +34,7 @@ const TopTracks = ({ genreId }: { genreId: number }) => {
 
   return (
     <View>
-      <HeaderComponent />
+      {data && data?.length > 0 && <HeaderComponent />}
       <FlatList
         data={data}
         horizontal
@@ -50,9 +50,7 @@ const TopTracks = ({ genreId }: { genreId: number }) => {
         keyExtractor={(item, index) => index.toString()}
         indicatorStyle="default"
         renderItem={({ item, index }) => (
-          <TopTrackCard
-            onPress={handleSelectedTrack}
-          item={item} key={index} />
+          <TopTrackCard onPress={handleSelectedTrack} item={item} key={index} />
         )}
       />
     </View>
@@ -65,7 +63,10 @@ const HeaderComponent = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Trending Now</Text>
-      <TextButton onPress={()=>router.push("/(tabs)/(songs)/trending-now")} label="See All" />
+      <TextButton
+        onPress={() => router.push("/(tabs)/(songs)/trending-now")}
+        label="See All"
+      />
     </View>
   );
 };

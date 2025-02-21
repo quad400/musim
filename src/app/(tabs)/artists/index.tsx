@@ -28,25 +28,32 @@ const Page = () => {
     error,
   } = useArtists();
   // Flatten the data from all pages into a single array
-  const flattenedData = data?.pages.flat() || [];
+  const flattenedData = data?.pages.flatMap((page)=>page.data) || [];
+  // console.log(JSON.stringify(flattenedData, null, 2));
 
   // Function to load more data when the user scrolls near the end
   const loadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
+      console.log("Load more data");
+
       fetchNextPage();
     }
   };
 
-  // Render an error message
-  if (isError) {
-    return (
-      <View style={styles.center}>
-        <Text>Error: {error.message}</Text>
-      </View>
-    );
-  }
+  console.log("IsError", isError);
+  console.log("HasNextPage", hasNextPage);
+  console.log("IsFetchingNextPage", isFetchingNextPage);
 
-  console.log("flattenedData", flattenedData);
+  // Render an error message
+  // if (isError) {
+  //   return (
+  //     <View style={styles.center}>
+  //       <Text>Error: {error.message}</Text>
+  //     </View>
+  //   );
+  // }
+
+
   const numColumns = Math.floor(spacing.width / 120);
 
   return (

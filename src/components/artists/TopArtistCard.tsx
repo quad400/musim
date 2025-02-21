@@ -4,10 +4,11 @@ import { Artist } from "@/interfaces/dreezer";
 import { fonts } from "@/constants/fonts";
 import { fontSize, spacing } from "@/constants/sizes";
 import { colors } from "@/constants/color";
+import { router } from "expo-router";
 
 const TopArtistCard = ({ item }: { item: Artist }) => {
   return (
-    <TouchableOpacity activeOpacity={0.4} style={styles.container}>
+    <TouchableOpacity onPress={()=>router.push(`/artists/${item.id}`)} activeOpacity={0.4} style={styles.container}>
       <Image source={{ uri: item.picture_medium }} style={styles.imageCard} />
       <Text style={styles.title}>{item.name}</Text>
     </TouchableOpacity>

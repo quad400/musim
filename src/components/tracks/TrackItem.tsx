@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import React from "react";
 import { fontSize, spacing } from "@/constants/sizes";
@@ -15,7 +14,6 @@ import LoaderKit from "react-native-loader-kit";
 import { StopPropagation } from "../StopPropagation";
 import MenuContent from "../MenuContent";
 import FastImage from "react-native-fast-image";
-import { TrackMapper } from "@/interfaces";
 import { Track } from "@/interfaces/dreezer";
 import { trackMapper } from "@/utils";
 
@@ -28,6 +26,7 @@ const TrackItem = ({
 }) => {
   const activeTrack = useActiveTrack();
   const { playing } = useIsPlaying();
+
 
   return (
     <TouchableOpacity

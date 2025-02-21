@@ -2,17 +2,13 @@ import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
-  StyleSheet,
   View,
 } from "react-native";
 import React from "react";
-import { useTopArtists } from "@/hooks/useQuery";
 import { spacing } from "@/constants/sizes";
 import { colors } from "@/constants/color";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import ArtistCard from "@/components/artists/ArtistCard";
 import { useHotList } from "@/hooks/usePlaylist";
-import PlaylistItem from "@/components/playlists/PlaylistItem";
 import HotlistItem from "@/components/playlists/HotlistItem";
 
 const HotList = () => {
@@ -21,7 +17,6 @@ const HotList = () => {
 
   const flattenedData = data?.pages.flat() || [];
 
-  console.log(JSON.stringify(data, null, 2));
 
   return (
     <FlatList

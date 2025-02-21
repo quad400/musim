@@ -69,36 +69,6 @@ const Layout = () => {
           }}
         />
         <Stack.Screen
-          name="top-artist/index"
-          options={{
-            headerTitle: "",
-            headerStyle: {
-              backgroundColor: colors.background,
-            },
-            contentStyle: {
-              backgroundColor: colors.background,
-            },
-            headerLeft: () => {
-              return (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: spacing.sm,
-                  }}
-                >
-                  <IconButton onPress={() => router.back()}>
-                    <AntDesign name="left" size={24} color={colors.icon} />
-                  </IconButton>
-                  <Text style={[styles.title, { fontSize: fontSize.base }]}>
-                    Artists For You
-                  </Text>
-                </View>
-              );
-            },
-          }}
-        />
-        <Stack.Screen
           name="hot-list/index"
           options={{
             headerTitle: "",

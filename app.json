@@ -17,6 +17,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "newArchEnabled": false,
       "package": "com.coderblack.musim"
     },
     "web": {

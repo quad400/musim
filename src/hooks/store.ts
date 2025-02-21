@@ -1,4 +1,4 @@
-import { Artists } from "@/interfaces";
+import { Artists, TrackMapper } from "@/interfaces";
 import { Track } from "react-native-track-player";
 import { create } from "zustand";
 
@@ -13,9 +13,17 @@ export const useTrackStore = create<TrackStoreType>((set) => ({
 }));
 
 
+interface FavoriteStoreType {
+    favoriteSongs: TrackMapper[];
+    setFavoriteSongs: (songs: TrackMapper[]) => void;
+}
+
+
+export const useFavoriteStore = create<FavoriteStoreType>((set) => ({
+    favoriteSongs: [],
+    setFavoriteSongs: (songs) => set({ favoriteSongs: songs }),
+}));
 interface AppStoreType {
-    songs: Track[];
-    setSongs: (songs: Track[]) => void;
     favoriteSongs: Track[];
     setFavoriteSongs: (songs: Track[]) => void;
     artists: Artists[];
@@ -23,8 +31,6 @@ interface AppStoreType {
 }
 
 export const useAppStore = create<AppStoreType>((set) => ({
-    songs: [],
-    setSongs: (songs) => set({ songs }),
     favoriteSongs: [],
     setFavoriteSongs: (songs) => set({ favoriteSongs: songs }),
     artists: [],
